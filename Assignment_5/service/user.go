@@ -5,10 +5,12 @@ type User struct {
 }
 
 type UserService struct {
+	users []*User
 }
 
 type UserIface interface {
 	Register(u *User) string
+	GetUser() []*User
 }
 
 func NewUserService() UserIface {
@@ -16,5 +18,10 @@ func NewUserService() UserIface {
 }
 
 func (u *UserService) Register(user *User) string {
-	return user.Nama + "berhasil didaftarkan"
+	u.users = append(u.users, user)
+	return user.Nama + " berhasil didaftarkan"
+}
+
+func (u *UserService) GetUser() []*User {
+	return u.users
 }
